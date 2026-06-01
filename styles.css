@@ -1168,6 +1168,110 @@ body.search-mode .page-nav { display: none; }
   vertical-align: 1px;
 }
 
+/* =================== OVERVIEW (chooser) PAGES =================== */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+.overview-card {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 28px 24px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  color: var(--text);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+.overview-card::after {
+  content: '';
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, var(--green), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.overview-card:hover {
+  border-color: var(--green);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+  color: var(--navy);
+}
+.overview-card:hover::after { opacity: 0.18; }
+.ov-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.ov-pill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+.ov-pill-red { background: #ffe3e3; color: #c43838; border-color: #f5b8b8; }
+.ov-pill-orange { background: #ffe7cf; color: #a85d10; border-color: #f0c594; }
+.ov-pill-blue { background: #d8eaf0; color: var(--navy); border-color: #b9d8e2; }
+.ov-pill-green { background: #eef7d0; color: var(--green-dark); border-color: #d8ec96; }
+.ov-len {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.overview-card h3 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.015em;
+  margin: 0 0 12px;
+  line-height: 1.15;
+}
+.ov-ages {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: -0.01em;
+}
+.overview-card p {
+  margin: 0 0 20px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+  flex: 1;
+}
+.ov-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--navy);
+  letter-spacing: -0.005em;
+}
+.ov-cta .arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.overview-card:hover .ov-cta { color: var(--green-dark); }
+.overview-card:hover .ov-cta .arrow { transform: translateX(4px); }
+
+@media (max-width: 1100px) {
+  .overview-grid { grid-template-columns: 1fr; }
+}
+
 /* =================== DRILLS =================== */
 .drills-grid {
   display: grid;
