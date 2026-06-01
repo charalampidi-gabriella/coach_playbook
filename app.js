@@ -102,7 +102,7 @@
   // ----- Search across pages -----
   const search = document.getElementById('search');
   const searchableSelectors = [
-    '.fund-card',
+    '.fund-item',
     '.rot-card',
     '.ee-card',
     '.quick-card',

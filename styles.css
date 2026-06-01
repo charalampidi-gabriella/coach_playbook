@@ -609,50 +609,68 @@ body.search-mode .page-nav { display: none; }
 .callout-green { border-left-color: var(--green); }
 
 /* =================== FUNDAMENTALS =================== */
-.fund-grid {
+.fund-prose {
+  max-width: 760px;
+}
+.fund-item {
+  padding: 22px 0 22px 22px;
+  border-left: 3px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  transition: border-left-color 0.2s ease;
+}
+.fund-item:first-child { padding-top: 4px; }
+.fund-item:last-child { border-bottom: none; }
+.fund-item:hover { border-left-color: var(--green); }
+.fund-item h3 {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+.fund-item p {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 15.5px;
+  line-height: 1.62;
+}
+.fund-item p:last-child { margin-bottom: 0; }
+.fund-item ul, .fund-item ol { margin: 0 0 10px; }
+.fund-item ul:last-child, .fund-item ol:last-child { margin-bottom: 0; }
+
+.framework-steps {
+  list-style: none;
+  counter-reset: framework;
+  margin: 8px 0 0;
+  padding: 0;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 8px;
 }
-.fund-card {
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 24px;
-  position: relative;
-  transition: all 0.18s ease;
+.framework-steps li {
+  counter-increment: framework;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--platinum);
+  border-radius: 8px;
+  font-size: 15px;
+  color: var(--navy);
 }
-.fund-card:hover {
-  border-color: var(--blue-soft);
-  box-shadow: var(--shadow);
-}
-.fund-card-wide { grid-column: 1 / -1; }
-.fund-icon {
-  margin-bottom: 12px;
+.framework-steps li::before {
+  content: counter(framework);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  background: var(--platinum);
-  border-radius: 12px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--green);
   color: var(--navy);
-  line-height: 1;
+  font-weight: 800;
+  font-size: 13px;
+  flex-shrink: 0;
 }
-.fund-icon svg { width: 26px; height: 26px; display: block; }
-.fund-card:hover .fund-icon {
-  background: #eaf6c4;
-  color: var(--green-dark);
-}
-.fund-card h3 {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--navy);
-  margin: 8px 0 10px;
-  letter-spacing: -0.01em;
-}
-.fund-card p { margin: 0 0 10px; color: var(--text); font-size: 15px; }
-.fund-card p:last-child { margin-bottom: 0; }
 .fund-note {
   background: #f7fbe6;
   border-left: 3px solid var(--green);
