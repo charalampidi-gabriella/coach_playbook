@@ -1360,6 +1360,13 @@ body.search-mode .page-nav { display: none; }
   margin: 32px 0 14px;
   letter-spacing: -0.01em;
 }
+.block-h-first { margin-top: 4px; }
+.block-intro {
+  color: var(--muted);
+  font-size: 15px;
+  margin: -6px 0 18px;
+  max-width: 720px;
+}
 
 .timeline {
   display: grid;
