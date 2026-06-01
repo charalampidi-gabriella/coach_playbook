@@ -61,18 +61,38 @@
     nav.innerHTML = prevHtml + nextHtml;
   };
 
+  // ----- Auto-expand parent <details> when active link is nested inside one -----
+  const openParents = (id) => {
+    const link = document.querySelector(`.nav-link[href="#${id}"]`);
+    if (!link) return;
+    let p = link.parentElement;
+    while (p && p !== document.body) {
+      if (p.tagName === 'DETAILS') p.open = true;
+      p = p.parentElement;
+    }
+  };
+
   // ----- Show a single page -----
   const showPage = (rawId) => {
     let id = rawId || DEFAULT_PAGE;
-    if (!PAGE_BY_ID.has(id)) id = DEFAULT_PAGE;
+    // Fall back to home ONLY if no section with that id exists in the DOM.
+    // Pages can be valid even if they are not in the sidebar (orphan / chooser pages).
+    if (!document.getElementById(id)) id = DEFAULT_PAGE;
 
     ALL_SECTIONS.forEach((s) => s.classList.toggle('active', s.id === id));
     setActive(id);
+    openParents(id);
     const target = document.getElementById(id);
-    if (target) buildPageNav(target, id);
-    document.title = id === DEFAULT_PAGE
-      ? 'Rippner Coach Resources'
-      : `${PAGE_BY_ID.get(id).title} · Rippner Coach Resources`;
+    if (target && PAGE_BY_ID.has(id)) buildPageNav(target, id);
+    else if (target) {
+      // Orphan page: remove any stale prev/next built earlier
+      const oldNav = target.querySelector(':scope > .page-nav');
+      if (oldNav) oldNav.remove();
+    }
+    const page = PAGE_BY_ID.get(id);
+    document.title = page
+      ? `${page.title} · Rippner Coach Resources`
+      : 'Rippner Coach Resources';
     // Scroll top instantly so each "page" feels like a fresh view
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   };
