@@ -996,6 +996,122 @@ a:hover { color: var(--navy); }
   vertical-align: 1px;
 }
 
+/* =================== DRILLS =================== */
+.drills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.drill-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: all 0.18s ease;
+  display: flex;
+  flex-direction: column;
+}
+.drill-card:hover {
+  border-color: var(--green);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+.drill-head {
+  background: linear-gradient(135deg, var(--navy), var(--navy-2));
+  color: white;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.drill-head h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: white;
+  flex: 1 1 auto;
+}
+.drill-players {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(149, 214, 0, 0.18);
+  color: var(--green-2);
+  border: 1px solid rgba(149, 214, 0, 0.4);
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.drill-body {
+  padding: 18px 22px 22px;
+  flex: 1 1 auto;
+}
+.drill-section-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--blue);
+  margin: 14px 0 8px;
+}
+.drill-section-title:first-child { margin-top: 0; }
+.drill-list {
+  margin: 0;
+  padding-left: 18px;
+}
+.drill-list li {
+  font-size: 14.5px;
+  margin-bottom: 4px;
+}
+.drill-scores {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.drill-scores li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14.5px;
+}
+.score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 13px;
+  color: white;
+  flex-shrink: 0;
+}
+.score-1 { background: var(--blue-soft); }
+.score-2 { background: var(--blue); }
+.score-3 { background: var(--green-dark); }
+.drill-note {
+  background: #f7fbe6;
+  border-left: 3px solid var(--green);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13.5px;
+  color: var(--navy);
+  margin: 0 0 12px;
+  font-style: italic;
+}
+.drill-body > .drill-note + .drill-section-title { margin-top: 4px; }
+
+@media (max-width: 1100px) {
+  .drills-grid { grid-template-columns: 1fr; }
+}
+
 /* =================== CAMP =================== */
 .camp-section { background: linear-gradient(180deg, transparent, #fffdf3 80%); }
 .slogan {

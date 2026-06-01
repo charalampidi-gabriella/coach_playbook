@@ -90,6 +90,7 @@
     '.station',
     '.spec-item',
     '.day-card',
+    '.drill-card',
   ];
   const searchTargets = Array.from(document.querySelectorAll(searchableSelectors.join(',')));
 

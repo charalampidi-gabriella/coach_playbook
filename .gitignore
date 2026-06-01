@@ -8,6 +8,9 @@ replace_dashes.py
 # Intermediate extracted markdown
 extracted/
 
+# Python bytecode cache
+__pycache__/
+
 # OS / editor cruft
 .DS_Store
 Thumbs.db
