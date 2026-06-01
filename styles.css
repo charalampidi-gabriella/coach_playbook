@@ -213,6 +213,102 @@ a:hover { color: var(--navy); }
 }
 .nav-contact { margin-top: 8px; }
 
+/* =================== FEATURE REQUEST =================== */
+.feature-request {
+  margin: 24px 0 8px;
+  padding: 18px 16px;
+  background: linear-gradient(160deg, #1b4458 0%, #2a5f78 100%);
+  border-radius: var(--radius);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.feature-request::after {
+  content: '';
+  position: absolute;
+  right: -30px;
+  top: -30px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, var(--green), transparent 70%);
+  opacity: 0.18;
+  pointer-events: none;
+}
+.fr-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.fr-icon { color: var(--green-2); flex-shrink: 0; }
+.fr-sub {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 12px;
+  line-height: 1.4;
+}
+.fr-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.fr-form textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.45;
+  padding: 9px 11px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  resize: vertical;
+  min-height: 64px;
+  max-height: 200px;
+  transition: all 0.15s ease;
+}
+.fr-form textarea::placeholder { color: rgba(255, 255, 255, 0.45); }
+.fr-form textarea:focus {
+  outline: none;
+  border-color: var(--green);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(149, 214, 0, 0.18);
+}
+.fr-btn {
+  background: var(--green);
+  color: var(--navy);
+  border: none;
+  font: inherit;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  padding: 9px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.fr-btn:hover {
+  background: var(--green-2);
+  transform: translateY(-1px);
+}
+.fr-btn:active { transform: translateY(0); }
+.fr-btn:disabled {
+  background: rgba(149, 214, 0, 0.35);
+  color: rgba(27, 68, 88, 0.6);
+  cursor: not-allowed;
+  transform: none;
+}
+.fr-status {
+  font-size: 12px;
+  color: var(--green-2);
+  min-height: 16px;
+  line-height: 1.4;
+}
+.fr-status.fr-error { color: #ffb3b3; }
+
 /* =================== MAIN =================== */
 .main {
   min-width: 0;

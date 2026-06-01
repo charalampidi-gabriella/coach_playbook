@@ -167,6 +167,33 @@
     });
   };
 
+  // ----- Feature request form -----
+  const featureForm = document.getElementById('featureForm');
+  const featureText = document.getElementById('featureText');
+  const featureStatus = document.getElementById('featureStatus');
+  if (featureForm && featureText && featureStatus) {
+    featureForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const body = featureText.value.trim();
+      featureStatus.classList.remove('fr-error');
+      if (!body) {
+        featureStatus.textContent = 'Please type a quick description first.';
+        featureStatus.classList.add('fr-error');
+        featureText.focus();
+        return;
+      }
+      const subject = 'Coach Playbook — feature request';
+      const mailto = `mailto:manager@rippnertennis.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+      featureStatus.textContent = 'Opening your email…';
+      // Clear after a short delay so the next visitor starts fresh
+      setTimeout(() => {
+        featureText.value = '';
+        featureStatus.textContent = 'Thanks! Send the email to submit.';
+      }, 400);
+    });
+  }
+
   if (search) {
     search.addEventListener('input', debounce((e) => applyFilter(e.target.value), 120));
     document.addEventListener('keydown', (e) => {

@@ -83,10 +83,17 @@
         <a href="#camp-junior" class="nav-link">Junior Camp (9-15)</a>
       </div>
 
-      <div class="nav-group nav-contact">
-        <div class="nav-label">Contact</div>
-        <a href="tel:5122227260" class="nav-link nav-mini"><svg class="ico ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 512-222-7260</a>
-        <a href="mailto:info@rippnertennis.com" class="nav-link nav-mini"><svg class="ico ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg> info@rippnertennis.com</a>
+      <div class="feature-request" id="featureRequest">
+        <div class="fr-head">
+          <svg class="fr-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 0-4 12.7c.5.4.9.8 1.2 1.3.3.5.8 1.5.8 2h4c0-.5.5-1.5.8-2 .3-.5.7-.9 1.2-1.3A7 7 0 0 0 12 2z"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+          <span>Got a feature idea?</span>
+        </div>
+        <p class="fr-sub">Let us know what would help you coach.</p>
+        <form id="featureForm" class="fr-form" novalidate>
+          <textarea id="featureText" rows="3" placeholder="What would make this playbook more useful?" required></textarea>
+          <button type="submit" class="fr-btn">Send Request</button>
+          <div class="fr-status" id="featureStatus" role="status" aria-live="polite"></div>
+        </form>
       </div>
     </nav>
   </aside>
