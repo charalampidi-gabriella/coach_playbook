@@ -1202,11 +1202,6 @@ body.search-mode .page-nav { display: none; }
   letter-spacing: -0.01em;
   font-weight: 700;
 }
-.week-final summary {
-  background: linear-gradient(90deg, transparent, rgba(149, 214, 0, 0.08));
-}
-.week-final .wk { background: var(--green); color: var(--navy); }
-
 .wk-list {
   list-style: none;
   margin: 0;
