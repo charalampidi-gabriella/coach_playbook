@@ -1281,6 +1281,28 @@ body.search-mode .page-nav { display: none; }
   color: var(--navy);
 }
 .overview-card:hover::after { opacity: 0.18; }
+
+.overview-card-disabled {
+  background: var(--surface-2);
+  border-style: dashed;
+  border-color: var(--line-2);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.overview-card-disabled h3 { color: var(--muted); }
+.overview-card-disabled p { color: var(--muted-2); }
+.overview-card-disabled .ov-len { color: var(--muted-2); }
+.ov-soon-tag {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--platinum);
+  color: var(--muted);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
 .ov-meta {
   display: flex;
   flex-wrap: wrap;
