@@ -11,6 +11,9 @@ extracted/
 # Python bytecode cache
 __pycache__/
 
+# Source folder for red-ball PDFs (the deployed copies live in assets/red-ball-pdfs/)
+red-ball-resource/
+
 # OS / editor cruft
 .DS_Store
 Thumbs.db

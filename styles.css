@@ -1623,6 +1623,36 @@ body.search-mode .page-nav { display: none; }
   letter-spacing: -0.01em;
 }
 .block-h-first { margin-top: 4px; }
+.block-h-sub {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-left: 10px;
+  vertical-align: 2px;
+}
+.drill-pdf-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--blue);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-2);
+  transition: all 0.15s ease;
+}
+.drill-pdf-link:hover {
+  color: var(--green-dark);
+  border-color: var(--green);
+  background: #f7fbe6;
+}
+.drill-pdf-link svg { width: 14px; height: 14px; }
 .block-intro {
   color: var(--muted);
   font-size: 15px;
