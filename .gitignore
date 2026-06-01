@@ -1,0 +1,16 @@
+# Source documents (not part of the website)
+*.docx
+
+# Helper scripts used to build the site from the source docs
+extract_docx.py
+replace_dashes.py
+
+# Intermediate extracted markdown
+extracted/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
