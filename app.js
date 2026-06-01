@@ -23,48 +23,73 @@
     });
   }
 
-  // ----- Active nav highlight via IntersectionObserver -----
+  // ----- Build the ordered page list from the sidebar nav -----
   const navLinks = Array.from(document.querySelectorAll('.nav-link[href^="#"]'));
-  const linkById = new Map(navLinks.map((l) => [l.getAttribute('href').slice(1), l]));
-  const sections = navLinks
-    .map((l) => document.getElementById(l.getAttribute('href').slice(1)))
-    .filter(Boolean);
+  const PAGES = navLinks
+    .map((l) => ({
+      id: l.getAttribute('href').slice(1),
+      title: l.textContent.trim(),
+    }))
+    .filter((p) => document.getElementById(p.id));
 
-  let lastActive = null;
+  const PAGE_BY_ID = new Map(PAGES.map((p) => [p.id, p]));
+  const DEFAULT_PAGE = 'home';
+  const ALL_SECTIONS = Array.from(document.querySelectorAll('section.section, section.hero'));
+
+  // ----- Active sidebar link -----
   const setActive = (id) => {
-    if (lastActive === id) return;
-    lastActive = id;
     navLinks.forEach((l) => l.classList.toggle('active', l.getAttribute('href') === `#${id}`));
   };
 
-  if ('IntersectionObserver' in window && sections.length) {
-    const visible = new Map();
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) visible.set(entry.target.id, entry.intersectionRatio);
-          else visible.delete(entry.target.id);
-        });
-        if (visible.size) {
-          // pick the section whose top is highest (i.e., first visible)
-          let best = null;
-          let bestTop = Infinity;
-          visible.forEach((_, id) => {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const top = el.getBoundingClientRect().top;
-            if (top < bestTop && top < 240) {
-              bestTop = top;
-              best = id;
-            }
-          });
-          if (best) setActive(best);
-        }
-      },
-      { rootMargin: '-80px 0px -55% 0px', threshold: [0, 0.1, 0.3, 0.6] }
-    );
-    sections.forEach((s) => obs.observe(s));
-  }
+  // ----- Build / refresh the prev-next footer on a section -----
+  const buildPageNav = (sectionEl, currentId) => {
+    let nav = sectionEl.querySelector(':scope > .page-nav');
+    if (!nav) {
+      nav = document.createElement('div');
+      nav.className = 'page-nav';
+      sectionEl.appendChild(nav);
+    }
+    const idx = PAGES.findIndex((p) => p.id === currentId);
+    const prev = idx > 0 ? PAGES[idx - 1] : null;
+    const next = idx >= 0 && idx < PAGES.length - 1 ? PAGES[idx + 1] : null;
+    const prevHtml = prev
+      ? `<a href="#${prev.id}" class="page-nav-prev"><div class="page-nav-label">&larr; Previous</div><div class="page-nav-title">${prev.title}</div></a>`
+      : `<span class="page-nav-spacer"></span>`;
+    const nextHtml = next
+      ? `<a href="#${next.id}" class="page-nav-next"><div class="page-nav-label">Next &rarr;</div><div class="page-nav-title">${next.title}</div></a>`
+      : `<span class="page-nav-spacer"></span>`;
+    nav.innerHTML = prevHtml + nextHtml;
+  };
+
+  // ----- Show a single page -----
+  const showPage = (rawId) => {
+    let id = rawId || DEFAULT_PAGE;
+    if (!PAGE_BY_ID.has(id)) id = DEFAULT_PAGE;
+
+    ALL_SECTIONS.forEach((s) => s.classList.toggle('active', s.id === id));
+    setActive(id);
+    const target = document.getElementById(id);
+    if (target) buildPageNav(target, id);
+    document.title = id === DEFAULT_PAGE
+      ? 'Rippner Coach Resources'
+      : `${PAGE_BY_ID.get(id).title} · Rippner Coach Resources`;
+    // Scroll top instantly so each "page" feels like a fresh view
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  };
+
+  // Initial render
+  showPage(window.location.hash.slice(1));
+
+  // Listen for hash changes (nav-link clicks, manual URL edits, back/forward)
+  window.addEventListener('hashchange', () => {
+    if (document.body.classList.contains('search-mode')) {
+      // Clicking a result while in search mode should leave search and go to that page
+      const search = document.getElementById('search');
+      if (search) search.value = '';
+      exitSearch();
+    }
+    showPage(window.location.hash.slice(1));
+  });
 
   // ----- Back-to-top button -----
   const toTop = document.querySelector('.to-top');
@@ -74,7 +99,7 @@
     tick();
   }
 
-  // ----- Search: filter cards / weeks / fundamentals by text -----
+  // ----- Search across pages -----
   const search = document.getElementById('search');
   const searchableSelectors = [
     '.fund-card',
@@ -93,14 +118,9 @@
     '.drill-card',
   ];
   const searchTargets = Array.from(document.querySelectorAll(searchableSelectors.join(',')));
-
-  // Each target gets a normalized search string built once
   searchTargets.forEach((el) => {
     el.dataset.searchText = (el.textContent || '').toLowerCase();
   });
-
-  // Section visibility: hide a section if all its items are hidden
-  const allSections = Array.from(document.querySelectorAll('section.section'));
 
   const debounce = (fn, ms) => {
     let t;
@@ -110,35 +130,37 @@
     };
   };
 
+  const exitSearch = () => {
+    document.body.classList.remove('search-mode');
+    searchTargets.forEach((el) => el.classList.remove('search-hidden'));
+    ALL_SECTIONS.forEach((s) => s.classList.remove('search-hidden'));
+    document.querySelectorAll('.week-card[data-was-closed]').forEach((d) => {
+      d.removeAttribute('open');
+      d.removeAttribute('data-was-closed');
+    });
+  };
+
   const applyFilter = (q) => {
     q = q.trim().toLowerCase();
     if (!q) {
-      // reset
-      searchTargets.forEach((el) => el.classList.remove('search-hidden'));
-      allSections.forEach((s) => s.classList.remove('search-hidden'));
-      // also restore week-card open states if we changed them
-      document.querySelectorAll('.week-card[data-was-closed]').forEach((d) => {
-        d.removeAttribute('open');
-        d.removeAttribute('data-was-closed');
-      });
+      exitSearch();
+      showPage(window.location.hash.slice(1));
       return;
     }
+    document.body.classList.add('search-mode');
     const tokens = q.split(/\s+/).filter(Boolean);
 
-    // Per-target match
     searchTargets.forEach((el) => {
       const txt = el.dataset.searchText;
       const matches = tokens.every((t) => txt.includes(t));
       el.classList.toggle('search-hidden', !matches);
-      // Auto-open week cards that match
       if (matches && el.matches('.week-card') && !el.hasAttribute('open')) {
         el.setAttribute('open', '');
         el.setAttribute('data-was-closed', 'true');
       }
     });
 
-    // For sections: if section text has nothing matching, hide whole section
-    allSections.forEach((sec) => {
+    ALL_SECTIONS.forEach((sec) => {
       const txt = sec.textContent.toLowerCase();
       const sectionMatches = tokens.every((t) => txt.includes(t));
       sec.classList.toggle('search-hidden', !sectionMatches);
@@ -147,7 +169,6 @@
 
   if (search) {
     search.addEventListener('input', debounce((e) => applyFilter(e.target.value), 120));
-    // keyboard shortcut "/"
     document.addEventListener('keydown', (e) => {
       if (
         e.key === '/' &&
@@ -165,17 +186,4 @@
       }
     });
   }
-
-  // ----- Smooth-scroll active feedback (visual nudge) -----
-  navLinks.forEach((link) => {
-    link.addEventListener('click', (e) => {
-      const id = link.getAttribute('href').slice(1);
-      const target = document.getElementById(id);
-      if (target) {
-        // briefly emphasise
-        target.style.transition = 'box-shadow 0.6s ease';
-        target.style.scrollMarginTop = '80px';
-      }
-    });
-  });
 })();
