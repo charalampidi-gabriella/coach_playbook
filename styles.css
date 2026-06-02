@@ -1515,12 +1515,18 @@ body.search-mode .page-nav { display: none; }
 .drill-note {
   background: #f7fbe6;
   border-left: 3px solid var(--green);
-  padding: 8px 12px;
+  padding: 10px 14px;
   border-radius: 6px;
   font-size: 13.5px;
   color: var(--navy);
   margin: 0 0 12px;
   font-style: italic;
+}
+.drill-list + .drill-note,
+.drill-scores + .drill-note,
+ul + .drill-note,
+ol + .drill-note {
+  margin-top: 14px;
 }
 .drill-body > .drill-note + .drill-section-title { margin-top: 4px; }
 
